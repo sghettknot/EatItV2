@@ -11,9 +11,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.finalproject.androideatitv2client.Callback.IRecyclerClickListener;
 import com.finalproject.androideatitv2client.Common.Common;
+import com.finalproject.androideatitv2client.EventBus.CategoryClick;
 import com.finalproject.androideatitv2client.Model.CategoryModel;
 import com.finalproject.androideatitv2client.R;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -43,6 +47,12 @@ public class MyCategoryAdapter extends RecyclerView.Adapter<MyCategoryAdapter.My
         Glide.with(context).load(categoryModelList.get(position).getImage())
                 .into(holder.category_image);
         holder.category_name.setText(new StringBuilder(categoryModelList.get(position).getName()));
+
+        // Event
+        holder.setListener((view, pos) -> {
+            Common.categorySelected = categoryModelList.get(pos);
+            EventBus.getDefault().postSticky(new CategoryClick(true, categoryModelList.get(pos)));
+        });
     }
 
     @Override
@@ -50,15 +60,28 @@ public class MyCategoryAdapter extends RecyclerView.Adapter<MyCategoryAdapter.My
         return categoryModelList.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         Unbinder unbinder;
         @BindView(R.id.img_category)
         ImageView category_image;
         @BindView(R.id.txt_category)
         TextView category_name;
+
+        IRecyclerClickListener listener;
+
+        public void setListener(IRecyclerClickListener listener) {
+            this.listener = listener;
+        }
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             unbinder = ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            listener.onItemClickListener(view, getAdapterPosition());
         }
     }
 
