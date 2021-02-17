@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.widget.Toast;
 
 import com.finalproject.androideatitv2client.EventBus.CategoryClick;
+import com.finalproject.androideatitv2client.EventBus.FoodItemClick;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -49,7 +50,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_menu, R.id.nav_slideshow, R.id.nav_food_list)
+                R.id.nav_home, R.id.nav_menu, R.id.nav_food_detail, R.id.nav_food_list)
                 .setDrawerLayout(drawer)
                 .build();
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -106,6 +107,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         if (event.isSuccess()) {
             navController.navigate(R.id.nav_food_list);
             // Toast.makeText(this, "Click to "+event.getCategoryModel().getName(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void onFoodItemClick(FoodItemClick event) {
+        if (event.isSuccess()) {
+            navController.navigate(R.id.nav_food_detail);
         }
     }
 }
