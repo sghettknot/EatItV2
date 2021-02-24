@@ -46,8 +46,9 @@ public class MyFoodListAdapter extends RecyclerView.Adapter<MyFoodListAdapter.My
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Glide.with(context).load(foodModelList.get(position).getImage()).into(holder.img_food_image);
-        holder.txt_food_price.setText(new StringBuilder("$")
-        .append(foodModelList.get(position).getPrice()));
+        // COMMENT OUT
+        //holder.txt_food_price.setText(new StringBuilder("$")
+        //.append(foodModelList.get(position).getPrice()));
         holder.txt_food_name.setText(new StringBuilder("")
         .append(foodModelList.get(position).getName()));
 
@@ -68,12 +69,15 @@ public class MyFoodListAdapter extends RecyclerView.Adapter<MyFoodListAdapter.My
         private Unbinder unbinder;
         @BindView(R.id.txt_food_name)
         TextView txt_food_name;
-        @BindView(R.id.txt_food_price)
-        TextView txt_food_price;
+
+        // COMMENT OUT
+        //@BindView(R.id.txt_food_price)
+        //TextView txt_food_price;
         @BindView(R.id.img_food_image)
         ImageView img_food_image;
-        @BindView(R.id.img_quick_cart)
-        ImageView img_cart;
+
+        //@BindView(R.id.img_quick_cart)
+        //ImageView img_cart;
 
         IRecyclerClickListener listener;
 

@@ -43,6 +43,7 @@
                     android:textColor="@android:color/white"
                     android:textSize="20sp"/>
 
+                <!--
                 <TextView
                     android:id="@+id/txt_food_price"
                     android:layout_width="match_parent"
@@ -51,6 +52,7 @@
                     android:text="$0"
                     android:textColor="@android:color/white"
                     android:textSize="20sp"/>
+                -->
 
             </LinearLayout>
 
@@ -72,6 +74,7 @@
                     android:src="@drawable/ic_favorite_border_black_24"
                     app:tint="@android:color/white" />
 
+                <!--
                 <ImageView
                     android:id="@+id/img_quick_cart"
                     android:layout_width="0dp"
@@ -79,6 +82,7 @@
                     android:layout_weight="1"
                     android:src="@drawable/ic_shopping_cart_black_24"
                     app:tint="@android:color/white" />
+                -->
 
             </LinearLayout>
 

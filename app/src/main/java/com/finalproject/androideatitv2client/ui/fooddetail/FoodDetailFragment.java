@@ -27,6 +27,7 @@ import com.finalproject.androideatitv2client.Common.Common;
 import com.finalproject.androideatitv2client.Model.CommentModel;
 import com.finalproject.androideatitv2client.Model.FoodModel;
 import com.finalproject.androideatitv2client.R;
+import com.finalproject.androideatitv2client.ui.comments.CommentFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -36,6 +37,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Comment;
 import org.w3c.dom.Text;
 
 import java.util.HashMap;
@@ -64,10 +66,11 @@ public class FoodDetailFragment extends Fragment {
     TextView food_name;
     @BindView(R.id.food_description)
     TextView food_description;
-    @BindView(R.id.food_price)
-    TextView food_price;
-    @BindView(R.id.number_button)
-    ElegantNumberButton numberButton;
+    // COMMENT OUT
+    //@BindView(R.id.food_price)
+    //TextView food_price;
+    //@BindView(R.id.number_button)
+    //ElegantNumberButton numberButton;
     @BindView(R.id.ratingBar)
     RatingBar ratingBar;
     @BindView(R.id.btnShowComment)
@@ -76,6 +79,13 @@ public class FoodDetailFragment extends Fragment {
     @OnClick(R.id.btn_rating)
     void onRatingButtonClick() {
          showDialogRating();
+    }
+
+    @OnClick(R.id.btnShowComment)
+    void onShowCommentButtonClick() {
+        CommentFragment commentFragment = new CommentFragment().getInstance();
+        commentFragment.show(getActivity().getSupportFragmentManager(), "CommentFragment");
+
     }
 
     private void showDialogRating() {
@@ -202,7 +212,8 @@ public class FoodDetailFragment extends Fragment {
         Glide.with(getContext()).load(foodModel.getImage()).into(img_food);
         food_name.setText(new StringBuilder(foodModel.getName()));
         food_description.setText(new StringBuilder(foodModel.getDescription()));
-        food_price.setText(new StringBuilder(foodModel.getPrice().toString()));
+        // COMMENT OUT
+        //food_price.setText(new StringBuilder(foodModel.getPrice().toString()));
 
         // Refresh Rating Bar after submitting a rating
         if (foodModel.getRatingValue() != null)
