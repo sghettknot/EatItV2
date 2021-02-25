@@ -66,8 +66,9 @@
                 android:weightSum="2"
                 >
 
+                <!-- android:id="@+id/img_fav"-->
                 <ImageView
-                    android:id="@+id/img_fav"
+                    android:id="@+id/img_quick_cart"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
