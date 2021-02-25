@@ -93,4 +93,14 @@ public class FoodModel {
     public void setRatingCount(Long ratingCount) {
         this.ratingCount = ratingCount;
     }
+
+    // what goes here idk yet
+    public SizeModel getUserSelectedSize() {
+        // Do nothing
+        return null;
+    }
+
+    public List<AddonModel> getUserSelectedAddon() {
+        return null;
+    }
 }

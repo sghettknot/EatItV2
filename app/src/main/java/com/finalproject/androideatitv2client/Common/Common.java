@@ -1,8 +1,12 @@
 package com.finalproject.androideatitv2client.Common;
 
+import com.finalproject.androideatitv2client.Model.AddonModel;
 import com.finalproject.androideatitv2client.Model.CategoryModel;
 import com.finalproject.androideatitv2client.Model.FoodModel;
+import com.finalproject.androideatitv2client.Model.SizeModel;
 import com.finalproject.androideatitv2client.Model.UserModel;
+
+import java.util.List;
 
 public class Common {
     public static final String USER_REFERENCES = "Users";
@@ -15,5 +19,24 @@ public class Common {
     public static UserModel currentUser;
     public static CategoryModel categorySelected;
     public static FoodModel selectedFood;
+
+    public static Double calculatedExtraPrice(SizeModel userSelectedSize, List<AddonModel> userSelectedAddon) {
+        Double result = 0.0;
+        if (userSelectedSize == null && userSelectedAddon == null)
+            return 0.0;
+        else if (userSelectedSize == null) {
+            for (AddonModel addonModel : userSelectedAddon)
+                result += addonModel.getPrice();
+            return result;
+        } else if (userSelectedAddon == null) {
+            return userSelectedSize.getPrice()*1.0;
+        } else {
+            // both size and addon is selected
+            result = userSelectedSize.getPrice()*1.0;
+            for (AddonModel addonModel : userSelectedAddon)
+                result += addonModel.getPrice();
+            return result;
+        }
+    }
 }
 

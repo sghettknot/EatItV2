@@ -1,6 +1,7 @@
 package com.finalproject.androideatitv2client.Database;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -118,5 +119,18 @@ public class CartItem {
 
     public void setFoodName(String foodName) {
         this.foodName = foodName;
+    }
+
+    // 15: Improve Cart System
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if(obj == this)
+            return true;
+        if(!(obj instanceof CartItem))
+            return false;
+        CartItem cartItem = (CartItem)obj;
+        return cartItem.getFoodId().equals(this.foodId) &&
+                cartItem.getFoodAddon().equals(this.foodAddon) &&
+                cartItem.getFoodSize().equals(this.foodSize);
     }
 }

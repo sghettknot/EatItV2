@@ -24,6 +24,12 @@
         tools:layout="@layout/fragment_food_detail" />
 
     <fragment
+        android:id="@+id/nav_cart"
+        android:name="com.finalproject.androideatitv2client.ui.cart.CartFragment"
+        android:label="@string/menu_cart"
+        tools:layout="@layout/fragment_cart" />
+
+    <fragment
         android:id="@+id/nav_food_list"
         android:name="com.finalproject.androideatitv2client.ui.foodlist.FoodListFragment"
         android:label="@string/menu_food_list"
