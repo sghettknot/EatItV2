@@ -1,10 +1,14 @@
 package com.finalproject.androideatitv2client.ui.cart;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.EventLog;
 import android.view.LayoutInflater;
 
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -22,10 +26,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.finalproject.androideatitv2client.Adapter.MyCartAdapter;
 import com.finalproject.androideatitv2client.Common.Common;
+import com.finalproject.androideatitv2client.Common.MySwipeHelper;
 import com.finalproject.androideatitv2client.Database.CartDataSource;
 import com.finalproject.androideatitv2client.Database.CartDatabase;
 import com.finalproject.androideatitv2client.Database.CartItem;
 import com.finalproject.androideatitv2client.Database.LocalCartDataSource;
+import com.finalproject.androideatitv2client.EventBus.CounterCartEvent;
 import com.finalproject.androideatitv2client.EventBus.HideFABCart;
 import com.finalproject.androideatitv2client.EventBus.UpdateItemInCart;
 import com.finalproject.androideatitv2client.R;
@@ -59,6 +65,8 @@ public class CartFragment extends Fragment {
     @BindView(R.id.group_place_holder)
     CardView group_place_holder;
 
+    private MyCartAdapter adapter;
+
     private Unbinder unbinder;
 
     private  CartViewModel cartViewModel;
@@ -82,7 +90,7 @@ public class CartFragment extends Fragment {
                     group_place_holder.setVisibility(View.VISIBLE);
                     txt_empty_cart.setVisibility(View.GONE);
 
-                    MyCartAdapter adapter = new MyCartAdapter(getContext(), cartItems);
+                    adapter = new MyCartAdapter(getContext(), cartItems);
                     recycler_cart.setAdapter(adapter);
                 }
             }
@@ -93,6 +101,9 @@ public class CartFragment extends Fragment {
     }
 
     private void initViews() {
+
+        setHasOptionsMenu(true);
+
         cartDataSource = new LocalCartDataSource(CartDatabase.getInstance(getContext()).cartDAO());
 
         EventBus.getDefault().postSticky(new HideFABCart(true));
@@ -101,6 +112,77 @@ public class CartFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recycler_cart.setLayoutManager(layoutManager);
         recycler_cart.addItemDecoration(new DividerItemDecoration(getContext(), layoutManager.getOrientation()));
+
+        MySwipeHelper mySwipeHelper = new MySwipeHelper(getContext(), recycler_cart, 200) {
+            @Override
+            public void instantiateMyButton(RecyclerView.ViewHolder viewHolder, List<MyButton> buf) {
+                buf.add(new MyButton(getContext(), "Delete", 30, 0, Color.parseColor("#FF3C30"),
+                        pos -> {
+                            CartItem cartItem = adapter.getItemAtPosition(pos);
+                            cartDataSource.deleteCartItem(cartItem)
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribe(new SingleObserver<Integer>() {
+                                        @Override
+                                        public void onSubscribe(Disposable d) {
+
+                                        }
+
+                                        @Override
+                                        public void onSuccess(Integer integer) {
+                                            adapter.notifyItemRemoved(pos);
+                                            EventBus.getDefault().postSticky(new CounterCartEvent(true));
+                                            Toast.makeText(getContext(), "Delete item success!", Toast.LENGTH_SHORT).show();
+                                        }
+
+                                        @Override
+                                        public void onError(Throwable e) {
+                                            Toast.makeText(getContext(), ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                        }));
+            }
+        };
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(@NonNull Menu menu) {
+        menu.findItem(R.id.action_settings).setVisible(false); // Hide home menu already inflate
+        super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.cart_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_clear_cart) {
+            cartDataSource.cleanCart(Common.currentUser.getUid())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new SingleObserver<Integer>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+
+                        }
+
+                        @Override
+                        public void onSuccess(Integer integer) {
+                            Toast.makeText(getContext(), "Clear favourite success", Toast.LENGTH_SHORT).show();
+                            EventBus.getDefault().postSticky(new CounterCartEvent(true));
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            Toast.makeText(getContext(), ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
