@@ -121,13 +121,13 @@ public class MyFoodListAdapter extends RecyclerView.Adapter<MyFoodListAdapter.My
 
                                             @Override
                                             public void onSuccess(@io.reactivex.annotations.NonNull Integer integer) {
-                                                Toast.makeText(context, "Update Cart Success", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(context, "Update Favourite success", Toast.LENGTH_SHORT).show();
                                                 EventBus.getDefault().postSticky(new CounterCartEvent(true));
                                             }
 
                                             @Override
                                             public void onError(@io.reactivex.annotations.NonNull Throwable e) {
-                                                Toast.makeText(context, "[UPDATE CART]"+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(context, "[UPDATE FAVOURITE]"+e.getMessage(), Toast.LENGTH_SHORT).show();
                                             }
                                         });
                             } else {
@@ -136,10 +136,10 @@ public class MyFoodListAdapter extends RecyclerView.Adapter<MyFoodListAdapter.My
                                         .subscribeOn(Schedulers.io())
                                         .observeOn(AndroidSchedulers.mainThread())
                                         .subscribe(() -> {
-                                            Toast.makeText(context,"Add to Cart Success", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(context,"Add to Favourite success", Toast.LENGTH_SHORT).show();
                                             EventBus.getDefault().postSticky(new CounterCartEvent(true));
                                         }, throwable -> {
-                                            Toast.makeText(context,"[CART ERROR]"+throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(context,"[FAVOURITE ERROR]"+throwable.getMessage(), Toast.LENGTH_SHORT).show();
                                         }));
                             }
                         }
@@ -152,13 +152,13 @@ public class MyFoodListAdapter extends RecyclerView.Adapter<MyFoodListAdapter.My
                                         .subscribeOn(Schedulers.io())
                                         .observeOn(AndroidSchedulers.mainThread())
                                         .subscribe(() -> {
-                                            Toast.makeText(context,"Add to Cart Success", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(context,"Add to Favourite success", Toast.LENGTH_SHORT).show();
                                             EventBus.getDefault().postSticky(new CounterCartEvent(true));
                                         }, throwable -> {
                                             Toast.makeText(context,"[CART ERROR]"+throwable.getMessage(), Toast.LENGTH_SHORT).show();
                                         }));
                             } else
-                                Toast.makeText(context, "[GET CART]"+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "[GET FAVOURITE]"+e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
         });

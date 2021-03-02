@@ -141,7 +141,7 @@ public class CartFragment extends Fragment {
 
                         @Override
                         public void onError(Throwable e) {
-                            Toast.makeText(getContext(),"[UPDATE CART]"+e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(),"[UPDATE FAVOURITE]"+e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
         }

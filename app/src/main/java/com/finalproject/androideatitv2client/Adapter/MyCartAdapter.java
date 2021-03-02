@@ -46,10 +46,12 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.MyViewHold
         Glide.with(context).load(cartItemList.get(position).getFoodImage())
                 .into(holder.img_cart);
         holder.txt_food_name.setText(new StringBuilder(cartItemList.get(position).getFoodName()));
+
+
         /* COMMENT
         holder.txt_food_price.setText(new StringBuilder("")
         .append(cartItemList.get(position).getFoodPrice() + cartItemList.get(position).getFoodExtraPrice()));
-        END OF COMMENT */
+
         holder.numberButton.setNumber(String.valueOf(cartItemList.get(position).getFoodQuantity()));
 
         // Event
@@ -61,6 +63,7 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.MyViewHold
                 EventBus.getDefault().postSticky(new UpdateItemInCart(cartItemList.get(position)));
             }
         });
+         END OF COMMENT*/
     }
 
     @Override
@@ -72,12 +75,17 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.MyViewHold
         private Unbinder unbinder;
         @BindView(R.id.img_cart)
         ImageView img_cart;
+        /* COMMENT
         @BindView(R.id.txt_food_price)
         TextView txt_food_price;
+        END OF COMMENT */
         @BindView(R.id.txt_food_name)
         TextView txt_food_name;
+        /* COMMENT
         @BindView(R.id.number_button)
         ElegantNumberButton numberButton;
+        END OF COMMENT
+         */
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             unbinder = ButterKnife.bind(this, itemView);

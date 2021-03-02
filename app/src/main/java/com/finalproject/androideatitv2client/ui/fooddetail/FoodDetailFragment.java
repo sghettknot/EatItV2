@@ -158,7 +158,7 @@ public class FoodDetailFragment extends Fragment {
 
                                         @Override
                                         public void onSuccess(@io.reactivex.annotations.NonNull Integer integer) {
-                                            Toast.makeText(getContext(), "Update Cart Success", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getContext(), "Update Favourite success", Toast.LENGTH_SHORT).show();
                                             EventBus.getDefault().postSticky(new CounterCartEvent(true));
                                         }
 
@@ -173,7 +173,7 @@ public class FoodDetailFragment extends Fragment {
                                     .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .subscribe(() -> {
-                                        Toast.makeText(getContext(),"Add to Cart Success", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getContext(),"Add to Favourite success", Toast.LENGTH_SHORT).show();
                                         EventBus.getDefault().postSticky(new CounterCartEvent(true));
                                     }, throwable -> {
                                         Toast.makeText(getContext(),"[CART ERROR]"+throwable.getMessage(), Toast.LENGTH_SHORT).show();
@@ -189,7 +189,7 @@ public class FoodDetailFragment extends Fragment {
                                     .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .subscribe(() -> {
-                                        Toast.makeText(getContext(),"Add to Cart Success", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getContext(),"Add to Favourite success", Toast.LENGTH_SHORT).show();
                                         EventBus.getDefault().postSticky(new CounterCartEvent(true));
                                     }, throwable -> {
                                         Toast.makeText(getContext(),"[CART ERROR]"+throwable.getMessage(), Toast.LENGTH_SHORT).show();
