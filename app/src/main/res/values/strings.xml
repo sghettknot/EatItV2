@@ -15,9 +15,10 @@
     <string name="menu_food_list">Food List</string>
     <string name="sign_out">Sign Out</string>
     
-    <string name="popular_categories">Popular Categories</string>
+    <string name="popular_categories">Categories</string>
     <string name="best_deals">Best Deals</string>
     <string name="menu_menu">Categories</string>
     <string name="action_clear_cart">Clear Favourite</string>
+    <string name="action_search">Search</string>
 
 </resources>
