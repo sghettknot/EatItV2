@@ -11,6 +11,7 @@ import com.finalproject.androideatitv2client.Database.CartDataSource;
 import com.finalproject.androideatitv2client.Database.CartDatabase;
 import com.finalproject.androideatitv2client.Database.CartItem;
 import com.finalproject.androideatitv2client.Database.LocalCartDataSource;
+import com.finalproject.androideatitv2client.Model.FoodModel;
 
 import java.util.List;
 

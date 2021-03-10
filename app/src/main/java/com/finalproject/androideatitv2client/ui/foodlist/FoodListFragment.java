@@ -93,6 +93,7 @@ public class FoodListFragment extends Fragment {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 startSearch(s);
+                searchView.clearFocus();
                 return true;
             }
 
@@ -112,6 +113,7 @@ public class FoodListFragment extends Fragment {
             searchView.setQuery("", false);
             // Collapse the search widget
             menuItem.collapseActionView();
+            searchView.clearFocus();
             // Restore result to original
             foodListViewModel.getMutableLiveDataFoodList();
         });

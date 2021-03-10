@@ -1,5 +1,7 @@
 package com.finalproject.androideatitv2client.ui.cart;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -11,11 +13,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -34,6 +39,7 @@ import com.finalproject.androideatitv2client.Database.LocalCartDataSource;
 import com.finalproject.androideatitv2client.EventBus.CounterCartEvent;
 import com.finalproject.androideatitv2client.EventBus.HideFABCart;
 import com.finalproject.androideatitv2client.EventBus.UpdateItemInCart;
+import com.finalproject.androideatitv2client.Model.FoodModel;
 import com.finalproject.androideatitv2client.R;
 import com.finalproject.androideatitv2client.ui.comments.CommentFragment;
 
@@ -41,6 +47,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
